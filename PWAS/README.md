@@ -9,7 +9,7 @@ Multiple sequence alignment or multiple structure alignment and similarity matri
    T-coffee ```t_coffee  ./100/sequences -output fasta_aln -thread 10 -outfile ./100/sequences.t_coffee.fast_aln ```  
    US-align ```USalign -dir ./100/ ./100/list -suffix .pdb -mm 4 -mol prot -o ./100/sugary1 > ./100/alignment ```  
 
-Similarity matrix for multiple sequence alignment is computed by BLOSUM62 score. e.g. mafftToSequenceSimilarity.py
+Similarity matrix for multiple sequence alignment is computed by BLOSUM62 score. e.g. mafftToSequenceSimilarity.py   
 Similarity matrix for multiple structure alignment is computed by TM score. usalignMatrix.py
  
      
