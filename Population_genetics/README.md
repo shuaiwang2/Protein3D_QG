@@ -1,12 +1,11 @@
 
 # Population genetics using 282 association panel 
 
-## Download, B73 V4 as reference.
+
+## VCF Download, B73 V4 as reference. and Lift over to V5
 ```
 #282 download https://datacommons.cyverse.org/browse/iplant/home/shared/panzea/hapmap3/hmp321/unimputed/282_libs_2015
-```
-## Lift over to V5
-```
+
 wget https://download.maizegdb.org/Zm-B73-REFERENCE-NAM-5.0/chain_files/B73_RefGen_v4_to_Zm-B73-REFERENCE-NAM-5.0.chain
 wget https://download.maizegdb.org/Zm-B73-REFERENCE-NAM-5.0/Zm-B73-REFERENCE-NAM-5.0.fa.gz
 gunzip Zm-B73-REFERENCE-NAM-5.0.fa.gz
