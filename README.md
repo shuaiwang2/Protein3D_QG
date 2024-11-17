@@ -13,9 +13,11 @@ We lift over 282 assocation panel and annotate it using structure feature and ot
 
 ## 3. PWAS (proteome-wide association) in NAM population
 
-We compared sequence and structure similarity matirx computed by MAFFT, Muscle, T-coffee, US-align.
+We compared sequence and structure similarity matirx computed by MAFFT(blosum 62), Muscle(blosum 62), T-Coffee (blosum 62), US-align(TM score).
 
 
 ## 4. PWP (proteome-wide prediction) in NAM population 
 
-We compared sequence and structure similarity matirx computed by MAFFT, Muscle, T-coffee, US-align.
+We compared sequence haplotype and structure similarity matirx computed by MAFFT(blosum 62), Muscle(blosum 62), T-Coffee(blosum 62), US-align (TM score).
+
+Haplotype similarity matirx is a categorical variable with 26 levels for all 26 fonuder lines.
