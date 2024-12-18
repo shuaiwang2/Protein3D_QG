@@ -7,10 +7,7 @@
 # Script parameters
 #--------------------------------------------------------
 # Working directory
-#wd <- ifelse(Sys.info()["user"] == "au686885",
-#             "C:/Users/au686885/OneDrive - Aarhus Universitet/QGG_plants/alphafold_QG/data/",
-#             "~/QGG_plants/alphafold_QG/data/")
-#dir.create(wd, showWarnings = FALSE)
+
 setwd("/home/song/wangs/pwas_pwp")
 
 # Number of permutations
