@@ -22,6 +22,6 @@ Similarity matrix for multiple structure alignment is computed by TM score. usal
 
 4. Pan-gene group matrix and PCs.
 
-5. Proteome-wide kinship matrices
+5. Kinship matrix.
 
 ## Association PWAS-association_testing-HQK.R
