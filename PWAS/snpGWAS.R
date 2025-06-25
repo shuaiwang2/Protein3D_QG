@@ -4,7 +4,7 @@ library(reshape2)
 library(foreach)
 library(doParallel)
 library(rtracklayer)
-
+library(ggplot2)
 
 setwd("/home/song/wangs/snpgwas")
 
@@ -73,7 +73,7 @@ write.table(pwas_cds, file = "all_results.tsv",
 data <-read.table("/home/song/wangs/snpgwas/all_results.tsv", header = T)
 
 
-threshold <- (0.05/1421004)
+threshold <- (0.05/1090989) #max number of number of analyzed SNPs/var for all traits
 
 data$file <- gsub("GE_GWAS2.assoc.txt", "DTS_BLUP.Hung_2012_1_nam", data$file)
 data$file <- gsub("GE_GWAS3.assoc.txt", "DTA_BLUP.Hung_2012_1_nam", data$file)
@@ -111,29 +111,31 @@ data$file <- sub("_B.*", "", data$file)
 colnames(data)[14] <- "trait"
 
 data_significance <- data[!is.na(data$min_p) & data$min_p < threshold, ]
-data_significance$file <- sub("_B.*", "", data_significance$file)
-data_significance2 <- data_significance[,c("file","gene","min_p")]
+# data_significance$trait <- sub("_B.*", "", data_significance$trait)
+data_significance2 <- data_significance[,c("trait","gene","min_p")]
 write.table(data_significance2, file = "data_significance.csv",sep = ',',
              quote = FALSE, row.names = FALSE)
 
 PWAS_file_signficant <- "/home/song/wangs/pwas_pwp/PWAS/QC_hits_max_B73"
-pwas<- read.table(PWAS_file_signficant, header = T)
-pwas$B73 <- sub("_.*", "", pwas$B73)
-pwas$gene <- pwas$B73
+PWAS_file_signficant<- read.table(PWAS_file_signficant, header = T)
+PWAS_file_signficant$B73 <- sub("_.*", "", PWAS_file_signficant$B73)
+PWAS_file_signficant$gene <- PWAS_file_signficant$B73
 
-pwas_gene <- merge(hits_max,gene_info,by="pangene")
+pwas$trait <- sub("_B.*", "", pwas$trait) #pwas file from PWAS-interpretation.R
+#pwas_gene <- merge(hits_max,gene_info,by="pangene")
 
-significan_combin_pwas <- merge(pwas,data,by=c("gene","trait"),all.x=TRUE)
+significan_combin_pwas <- merge(PWAS_file_signficant,data,by=c("gene","trait"),all.x=TRUE)
 significan_combin_pwas <- significan_combin_pwas[,c("trait","gene","Structure","min_p")]
+
 significan_combin_gwas <- merge(data_significance,pwas,by=c("gene","trait"),all.x=TRUE)
 significan_combin_gwas <- significan_combin_gwas[,c("trait","gene","Structure","min_p")]
 
-df_merged <- rbind(significan_combin_gwas, significan_combin_pwas) #253
+df_merged <- rbind(significan_combin_gwas, significan_combin_pwas) #273
 df_unique <- unique(df_merged)
 
 df_unique <- df_unique[complete.cases(df_unique[, 3:4]), ]
 
-df_unique[, 4] <- -log10(df_unique[, 4])  #count:92
+df_unique[, 4] <- -log10(df_unique[, 4])  #count:149
 
 
 p <- ggplot(df_unique,
@@ -144,7 +146,7 @@ p <- ggplot(df_unique,
   labs(x=bquote("Structure-based tests :"~-log[10]~"(p)"), 
        y=bquote("SNP-based tests:"~-log[10]~"(p)")) +
   geom_hline(yintercept=-log10(threshold), linetype="dashed") +
-  geom_vline(xintercept=-log10(BC_threshold), linetype="dashed") +
+  geom_vline(xintercept=5.32, linetype="dashed") +
   theme_bw(base_size=26)
 
 ggsave(filename = "snpComparison_with_structure-based_tests.pdf",width = 8, height = 7)
