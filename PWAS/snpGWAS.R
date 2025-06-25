@@ -113,14 +113,14 @@ colnames(data)[14] <- "trait"
 data_significance <- data[!is.na(data$min_p) & data$min_p < threshold, ]
 # data_significance$trait <- sub("_B.*", "", data_significance$trait)
 data_significance2 <- data_significance[,c("trait","gene","min_p")]
-write.table(data_significance2, file = "data_significance.csv",sep = ',',
-             quote = FALSE, row.names = FALSE)
+#write.table(data_significance2, file = "data_significance.csv",sep = ',',
+#             quote = FALSE, row.names = FALSE)
 
 PWAS_file_signficant <- "/home/song/wangs/pwas_pwp/PWAS/QC_hits_max_B73"
 PWAS_file_signficant<- read.table(PWAS_file_signficant, header = T)
 PWAS_file_signficant$B73 <- sub("_.*", "", PWAS_file_signficant$B73)
 PWAS_file_signficant$gene <- PWAS_file_signficant$B73
-
+PWAS_file_signficant <- PWAS_file_signficant[PWAS_file_signficant$Structure >5.32,]
 pwas$trait <- sub("_B.*", "", pwas$trait) #pwas file from PWAS-interpretation.R
 #pwas_gene <- merge(hits_max,gene_info,by="pangene")
 
@@ -129,14 +129,18 @@ significan_combin_pwas <- significan_combin_pwas[,c("trait","gene","Structure","
 
 significan_combin_gwas <- merge(data_significance,pwas,by=c("gene","trait"),all.x=TRUE)
 significan_combin_gwas <- significan_combin_gwas[,c("trait","gene","Structure","min_p")]
+significan_combin_gwas[, 3] <- -log10(significan_combin_gwas[, 3])
 
-df_merged <- rbind(significan_combin_gwas, significan_combin_pwas) #273
+df_merged <- rbind(significan_combin_gwas, significan_combin_pwas) #262
 df_unique <- unique(df_merged)
 
 df_unique <- df_unique[complete.cases(df_unique[, 3:4]), ]
 
-df_unique[, 4] <- -log10(df_unique[, 4])  #count:149
+df_unique[, 4] <- -log10(df_unique[, 4])  #count:139
 
+
+write.table(df_unique, file = "pwasandgwas.csv",sep = ',',
+                        quote = FALSE, row.names = FALSE)
 
 p <- ggplot(df_unique,
             aes(x=Structure,
@@ -150,3 +154,10 @@ p <- ggplot(df_unique,
   theme_bw(base_size=26)
 
 ggsave(filename = "snpComparison_with_structure-based_tests.pdf",width = 8, height = 7)
+
+
+pwas_gwas_merge <- merge(pwas,data,by=c("gene","trait"),all.x=TRUE)
+pwas_gwas_merge <- pwas_gwas_merge[,c("trait","gene","seqid.y","start.y","Structure","min_p")]
+
+write.table(pwas_gwas_merge, file = "pwas_gwas_merge.txt",sep = '\t',
+            quote = FALSE, row.names = FALSE)
