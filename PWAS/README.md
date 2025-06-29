@@ -1,7 +1,7 @@
 ## Pre-processing
 
 
-#GRM: GRM (genetic relationship matrix) is produced by PlINK, ```plink --bfile NAM_v5_PHGv1_all_chroms_vcftools_wanted --recode12 --output-missing-genotype 0 --transpose --out snp```  
+#Kinship kinship.sh 
 
 
 Multiple sequence alignment or multiple structure alignment and similarity matrix for each pan-gene (python)  
