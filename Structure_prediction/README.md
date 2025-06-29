@@ -1,6 +1,6 @@
 # Structure_prediction
 
-Fig1.R: all code used  in plotting Fig. 1. 
+Fig1.R: all code used  in plotting Fig. 1.  
 count_aa_indelandsub.py: count pairwisely difference of MSA result (MAFFT). 
 
 1. The predicted protein structures were performed using AlphaFold v2.0.0 with parameter preset as reduced_dbs as described in the AlphaFold database publication on the Frontera supercomputer.  
