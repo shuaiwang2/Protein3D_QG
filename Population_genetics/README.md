@@ -1,5 +1,6 @@
 
-# Population genetics using 282 association panel 
+# Population genetics using Goodman association panel 
+
 
 ## VCF using B73 V4 as reference and Lift over to V5.
 ```
@@ -78,3 +79,7 @@ minimap2 -x splice -t 100 -k 12 -a -p 0.4 -N 20 ${ref} cds.fa > ref.sam
 anchorwave proali  -i ${gff} -as cds.fa -r ${ref} -a TIL11.sam -ar ref.sam -s Zv-TIL11-REFERENCE-PanAnd-1.0.fa -n TIL11.anchors -o TIL11.maf -f TIL11.f.maf -t 10 -R 1 -Q 1
 perl /home/wangs/my_data/soft/tasseladmin-tassel-5-standalone-846381e171c8/run_pipeline.pl -Xmx250G -debug -MAFToGVCFPlugin -referenceFasta Zm-B73-REFERENCE-NAM-5.0.fa -mafFile TIL11.maf -sampleName TIL11 -gvcfOutput TIL11.gvcf -fillGaps false > TIL11.txt
 ```
+## piN/piS
+Fig2_pi.R
+
+## Figure Fig. 2 Fig2.R
